@@ -9,7 +9,7 @@
 
 int length(char *s) {
   int counter = 0;
-  while (s[counter]) {
+  while(s[counter]) {
     counter++;
   }
   return counter;
@@ -26,19 +26,44 @@ char * copy(char *dest, char *source) {
 
 char * catn(char *dest, char *source, int n) {
   int i = length(dest);
+  int counter = 0;
+  while(counter<n) {
+    *(dest+i) = *(source+counter);
+    i++;
+    counter++;
+  }
+  return dest;
 }
 
 int main() {
   char s1[64] = "anything";
   char s2[64] = "something";
 
-  printf("Length of \"anything\":\n");
-  printf("Ours: %d\n", length(s1));
-  printf("Standard: %d\n", strlen(s1));
+  printf("s1:[%s]\n", s1);
+  printf("s2:[%s]\n", s2);
 
-  printf("Copy s2 into s1:\n");
-  printf("Ours: %s\n", copy(s1,s2));
+  printf("=========================\n");
+  
+  printf("Testing strlen(s1):\n");
+  printf("Ours: %d\n", length(s1));
+  printf("Standard: %d\n", (int)strlen(s1));
+
+  printf("=========================\n");
+
+  printf("Testing strcpy(s1,s2):\n");
+  printf("Ours: [%s]\n", copy(s1,s2));
   strcpy(s1, "anything");
-  printf("Standard: %s\n", strcpy(s1,s2));
+  printf("Standard: [%s]\n", strcpy(s1,s2));
+  strcpy(s1, "anything");
+
+  printf("=========================\n");
+
+  printf("Testing strcatn(s1,s2):\n");
+  printf("Ours: [%s]\n", catn(s1,s2,4));
+  strcpy(s1, "anything");
+  printf("Standard: [%s]\n", strncat(s1,s2,4));
+  strcpy(s1, "anything");
+
+  printf("=========================\n");
 
 }
