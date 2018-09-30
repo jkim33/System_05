@@ -35,6 +35,44 @@ char * catn(char *dest, char *source, int n) {
   return dest;
 }
 
+int cmp( char *s1, char *s2 )  {
+  int i = 0;
+  int stop;
+  int ret = 0;
+
+  if (length(s1) < length(s2)){
+    stop = length(s1);
+  }
+  else {
+    stop = length(s2);
+  }
+
+  while(i <= stop){
+    if (*(s1+i) < *(s2+i)) {
+      ret = -1;
+    }
+    else if (*(s1+i) > *(s2+i)){
+      ret =  1;
+    }
+    i++;
+  }
+
+  if (ret != 0){
+    return ret;
+  }
+  else {
+    if (length(s1) < length(s2)){
+      return -1;
+    }
+    else if(length(s1) > length(s2)){
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
+}
+
 int main() {
   char s1[64] = "anything";
   char s2[64] = "something";
@@ -65,5 +103,15 @@ int main() {
   strcpy(s1, "anything");
 
   printf("=========================\n");
-
+  printf("Comparing s1 with s2\n");
+  printf("Ours:     a, b: %d\n", cmp("a","b"));
+  printf("Standard: a, b: %d\n", strcmp("a","b"));
+  printf("Ours:     c, b: %d\n", cmp("c","b"));
+  printf("Standard: c, b: %d\n", strcmp("c","b"));
+  printf("Ours:     apple, apple: %d\n", cmp("apple","apple"));
+  printf("Standard: apple, apple: %d\n", strcmp("apple","apple"));
+  printf("Ours:     applez, apple: %d\n", cmp("applez","apple"));
+  printf("Standard: applez, apple: %d\n", strcmp("applez","apple"));
+  printf("Ours:     apple, applez: %d\n", cmp("apple","applez"));
+  printf("Standard: apple, applez: %d\n", strcmp("apple","applez"));
 }
